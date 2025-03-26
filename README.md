@@ -26,7 +26,7 @@ Flashbots requires correctly signed headers to send transactions. This module pr
 
 ### Installation
 
- Install your package directly from GitHub:
+ Install package directly from GitHub:
 
 ```bash 
 pip install git+https://github.com/onium16/flashbots-header-signer.git
