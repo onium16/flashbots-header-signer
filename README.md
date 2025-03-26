@@ -81,7 +81,6 @@ Generated headers: {'Content-Type': 'application/json', 'X-Flashbots-Signature':
 
 ```
 
-
 ### Usage Example (Advanced)
 
 ```python
