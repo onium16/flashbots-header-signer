@@ -24,9 +24,41 @@ This error usually occurs due to improper message signing or Web3 version incons
 
 Flashbots requires correctly signed headers to send transactions. This module provides an easy-to-use interface to generate these signed headers while handling different Web3 versions seamlessly (tested with Web3 6.x.x and 7.x.x).
 
+
+### Setup and Installation
+* Create a new directory: First, create a new directory for your project:
+
+```bash 
+mkdir NewProject
+```
+* Navigate to the project directory: Move into the newly created directory:
+
+```bash
+cd NewProject
+```
+
+* Create and activate a virtual environment:
+
+    To create and activate a virtual environment, you can use the following commands:
+
+For Linux/MacOS:
+
+```bash
+python -m venv venv  # Create a virtual environment
+source venv/bin/activate  # Activate the environment
+```
+
+For Windows:
+
+```bash
+python -m venv venv  # Create a virtual environment
+venv\Scripts\activate  # Activate the environment
+```
+
+
 ### Installation from Pip
 
-Install package directly from Pip:
+* Install package directly from Pip:
 
 ```bash 
 pip install flashbots-header-signer
@@ -34,7 +66,7 @@ pip install flashbots-header-signer
 
 ### Installation from GitHub
 
-Install package directly from GitHub:
+* Install package directly from GitHub:
 
 ```bash 
 pip install git+https://github.com/onium16/flashbots-header-signer.git
@@ -42,7 +74,7 @@ pip install git+https://github.com/onium16/flashbots-header-signer.git
 
 ### Requirements
 
-Install the required dependencies via pip:
+* Install the required dependencies via pip:
 
 ```bash
 pip install -r requirements.txt
@@ -50,7 +82,7 @@ pip install -r requirements.txt
 
 ### Installation for test
 
-Clone the repository:
+* Clone the repository:
 
 ```bash
 git clone https://github.com/onium16/flashbots-header-signer.git
