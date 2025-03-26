@@ -195,7 +195,7 @@ Ignore the 400 error and the message containing "error" in the response. This ha
 
 **Once you replace the placeholder data in "txs" and "blockNumber" with actual values, the server will return a response like this:**
 
-```json
+```
 {'id': 1, 'result': {'bundleHash': '0xa1100000...'}, 'jsonrpc': '2.0'}
 ```
 
@@ -225,6 +225,9 @@ Final Response: {'id': 1, 'error': {'code': -32602, 'message': 'unable to decode
 
 This module automatically detects and handles Web3 versions `6.x.x` and `7.x.x`, signing the message accordingly. Make sure you have the correct version of Web3 installed for the desired compatibility.
 
+For more details on how Web3 works, visit: 
+[Web3 Documentation](https://web3py.readthedocs.io/en/stable/index.html)
+
 ### Official Documentation
 
 For more details on how Flashbots works, visit:  
@@ -233,7 +236,8 @@ For more details on how Flashbots works, visit:
 ### License
 
 This project is open-source and can be freely used in any project. You are welcome to integrate and modify it as needed.  
-Source code is available on GitHub: [Flashbots Header Signer](https://github.com/onium16/flashbot_sign_header.git)
+Source code is available on GitHub: 
+[Flashbots Header Signer](https://github.com/onium16/flashbot_sign_header.git)
 
 ---
 
