@@ -1,0 +1,7 @@
+*/__pycache__
+/.mypy_cache
+/*.egg-info
+/venv_web3_6
+/venv_web3_7
+/.vscode
+/.pytest_cache

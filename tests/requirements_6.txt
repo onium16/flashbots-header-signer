@@ -1,0 +1,8 @@
+aiohttp==3.9.3
+aioresponses==0.7.8
+eth-account==0.11.3
+pytest==8.3.5
+pytest-asyncio==0.26.0
+requests==2.32.3
+web3==6.20.3
+flashbots_header_signer==0.1.0

@@ -1,0 +1,86 @@
+name: Test FlashbotsHeaderSigner
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-python-versions:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']  # for all required Python versions
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # - name: Set up cache
+      #   uses: actions/cache@v2
+
+      # Set up Python environment for the given Python version
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Install dependencies from requirements_6.txt (for Web3 6.x)
+      - name: Create virtual environment and install dependencies from tests/requirements_6.txt (Web3 6.x)
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install git+https://github.com/onium16/flashbots-header-signer.git
+          pip install -r tests/requirements_6.txt
+
+      # Run tests for Python ${{ matrix.python-version }} with Web3 6.x dependencies
+      - name: Run Pytest for Python ${{ matrix.python-version }} with Web3 6.x dependencies
+        run: |
+          source venv/bin/activate
+          pytest --disable-warnings --junitxml=report_6.xml
+          
+      # Upload the test report for Python ${{ matrix.python-version }} with Web3 6.x dependencies
+      - name: Upload JUnit Test Report for Python ${{ matrix.python-version }} with Web3 6.x
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-report-${{ matrix.python-version }}-web3-6
+          path: report_6.xml
+
+      # Remove the virtual environment after testing for Python ${{ matrix.python-version }} (Web3 6.x)
+      - name: Remove virtual environment after testing for Python ${{ matrix.python-version }} (Web3 6.x)
+        run: |
+          rm -rf venv
+
+      # Install dependencies from requirements_7.txt (for Web3 7.x)
+      - name: Create virtual environment and install dependencies from tests/requirements_7.txt (Web3 7.x)
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install git+https://github.com/onium16/flashbots-header-signer.git
+          pip install -r tests/requirements_7.txt
+
+      # Run tests for Python ${{ matrix.python-version }} with Web3 7.x dependencies
+      - name: Run Pytest for Python ${{ matrix.python-version }} with Web3 7.x dependencies
+        run: |
+          source venv/bin/activate
+          pytest --disable-warnings --junitxml=report_7.xml
+
+      # Upload the test report for Python ${{ matrix.python-version }} with Web3 7.x dependencies
+      - name: Upload JUnit Test Report for Python ${{ matrix.python-version }} with Web3 7.x
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-report-${{ matrix.python-version }}-web3-7
+          path: report_7.xml
+
+      # Remove the virtual environment after testing for Python ${{ matrix.python-version }} (Web3 7.x)
+      - name: Remove virtual environment after testing for Python ${{ matrix.python-version }} (Web3 7.x)
+        run: |
+          rm -rf venv
+
+env:
+  ISSUES_URL: https://github.com/onium16/flashbots-header-signer/issues
