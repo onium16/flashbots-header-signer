@@ -202,15 +202,16 @@ class FlashbotsHeaderSigner:
 
             try:
                 async with aiohttp.ClientSession() as session:
+                    self.logger.info(f"Sending request to {url}. Headers: {headers_json}. Body: {tx_body}")
                     async with session.post(url, headers=headers_json, json=tx_body) as response:
                         response_data = await response.json()
 
                         if response.status == 200:
-                            self.logger.info("Flashbots request sent successfully")
+                            self.logger.info(f"Flashbots request sent successfully. Status code: {response.status}. Response: {response_data}")
                         else:
                             self.logger.warning(f"Failed. Status code: {response.status}")
                         
-                        self.logger.debug(f"Response: {response_data}")
+                        self.logger.debug(f"[CONTROL RESPONSE]: {response_data}")
                         return response_data
             except aiohttp.ClientError as e:
                 self.logger.error(f"HTTP error occurred: {e}")
