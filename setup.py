@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="flashbots_header_signer",
-    version="0.1.1",
+    version="0.1.2",
     author="SeriouS",
     author_email="onium16@gmail.com",
     description="Utility for creating signed headers for Flashbots requests, ensuring Web3 version compatibility.",
