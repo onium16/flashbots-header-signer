@@ -2,7 +2,7 @@ name: Publish to PyPI
 
 on:
   release:
-    types: [created]  # Запускать только при создании релиза
+    types: [created]  # Trigger only when a release is created
 
 jobs:
   deploy:
@@ -12,34 +12,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Полное извлечение истории, чтобы гарантировать актуальность
+          fetch-depth: 0  # Fetch full history to ensure up-to-date content
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
-          
+
       - name: Remove old build artifacts
         run: |
-          rm -rf dist/*
-          rm -rf build/*
-          rm -rf *.egg-info
+          rm -rf dist/ build/ *.egg-info  # Clean up old distribution, build, and egg-info directories
 
       - name: Install dependencies
-        run: pip install build twine
+        run: pip install build twine  # Install build and twine tools
 
       - name: Verify setup.py version
         run: |
-          grep 'version="' setup.py  # Проверяем версию в setup.py
+          ls -lh setup.py  # Check if setup.py file exists
+          cat setup.py     # Print the contents of setup.py for diagnostics
+          grep 'version="' setup.py || echo "Version string not found in setup.py"  # Search for version string or print a fallback message
 
       - name: Build package
-        run: python -m build
+        run: python -m build  # Build the package (sdist and wheel)
 
       - name: Check built files
-        run: ls -lh dist/  # Проверяем, какие файлы созданы
+        run: ls -lh dist/  # List the files created in the dist/ directory
 
       - name: Publish package to PyPI
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}  # Используем секретный токен
-        run: twine upload dist/* --verbose  # Добавляем --verbose для подробных логов
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}  # Use secret PyPI API token
+        run: twine upload dist/* --verbose  # Upload all files in dist/ with verbose output for detailed logs

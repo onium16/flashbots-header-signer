@@ -8,7 +8,7 @@ setup(
     version="0.1.2",
     author="SeriouS",
     author_email="onium16@gmail.com",
-    description="Utility for creating signed headers for Flashbots requests, ensuring Web3 version compatibility.",
+    description="Utility for creating signed headers for Flashbots requests.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/onium16/flashbots-header-signer",
@@ -31,10 +31,10 @@ setup(
         "dev": [
             "pytest",
             "pytest-asyncio",
-            "pytest-cov",  # For test coverage
-            "black",       # Code formatting
-            "flake8",      # Code linting
-            "aioresponses", # Mocking async requests
+            "pytest-cov",
+            "black",
+            "flake8",
+            "aioresponses",
         ],
     },
     python_requires=">=3.9",
