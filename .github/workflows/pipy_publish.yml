@@ -7,7 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,27 +18,28 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install dependencies
+        run: pip install build twine
+
+      - name: Update version in setup.py from release tag
+        run: |
+          TAG_VERSION=${{ github.event.release.tag_name }}  # Get tag (e.g., v0.1.2)
+          VERSION=${TAG_VERSION#v}  # Remove 'v' prefix (e.g., 0.1.2)
+          sed -i "s/version=\"[0-9.]*\"/version=\"$VERSION\"/" setup.py
+          cat setup.py | grep version  # Verify the updated version
+
       - name: Remove old build artifacts
         run: |
-          rm -rf dist/ build/ *.egg-info  # Clean up old distribution, build, and egg-info directories
-
-      - name: Install dependencies
-        run: pip install build twine  # Install build and twine tools
-
-      - name: Verify setup.py version
-        run: |
-          ls -lh setup.py  # Check if setup.py file exists
-          cat setup.py     # Print the contents of setup.py for diagnostics
-          grep 'version="' setup.py || echo "Version string not found in setup.py"  # Search for version string or print a fallback message
+          rm -rf dist/ build/ *.egg-info  # Clean up old artifacts
 
       - name: Build package
-        run: python -m build  # Build the package (sdist and wheel)
+        run: python -m build
 
       - name: Check built files
-        run: ls -lh dist/  # List the files created in the dist/ directory
+        run: ls -lh dist/  # List created files
 
       - name: Publish package to PyPI
         env:
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}  # Use secret PyPI API token
-        run: twine upload dist/* --verbose  # Upload all files in dist/ with verbose output for detailed logs
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}  # Use PyPI API token from secrets
+        run: twine upload dist/* --verbose  # Upload with verbose output
