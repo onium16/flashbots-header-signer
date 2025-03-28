@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: pip install build twine
 
+      - name: Remove old build artifacts
+        run: rm -rf dist/*
+
       - name: Build package
         run: python -m build
 
