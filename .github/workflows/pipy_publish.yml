@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Полное извлечение истории, чтобы гарантировать актуальность
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -21,13 +23,23 @@ jobs:
         run: pip install build twine
 
       - name: Remove old build artifacts
-        run: rm -rf dist/*
+        run: |
+          rm -rf dist/*
+          rm -rf build/*
+          rm -rf *.egg-info
+
+      - name: Verify setup.py version
+        run: |
+          grep 'version="' setup.py  # Проверяем версию в setup.py
 
       - name: Build package
         run: python -m build
+
+      - name: Check built files
+        run: ls -lh dist/  # Проверяем, какие файлы созданы
 
       - name: Publish package to PyPI
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}  # Используем секретный токен
-        run: twine upload dist/*
+        run: twine upload dist/* --verbose  # Добавляем --verbose для подробных логов
