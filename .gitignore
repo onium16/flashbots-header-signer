@@ -1,5 +1,6 @@
 */__pycache__
 /.mypy_cache
+/dist
 /*.egg-info
 /venv_web3_6
 /venv_web3_7
