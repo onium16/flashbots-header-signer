@@ -26,7 +26,7 @@ class FlashbotsHeaderSigner:
             raise ValueError("Error: The variable 'FLASHBOT_PRIVATE_KEY' is not set!")
 
         if not isinstance(private_key, str):
-            raise TypeError("url must be a string")
+            raise TypeError("Private key must be a string")
         
         if private_key.startswith("0x"):
             private_key = private_key[2:]
